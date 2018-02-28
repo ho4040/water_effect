@@ -48,11 +48,16 @@ gulp.task('less', function(){
         .pipe(browserSync.reload({stream:true, one:true}))
 });
 
+gulp.task('docs', function(){
+    return gulp.src('./public/**')
+        .pipe(gulp.dest('./docs'))
+});
+
 gulp.task('serve', function(done) {
     seq(['js','less'], 'browser-sync', done);
 });
 
-gulp.task('default', ['serve'], function(){
+gulp.task('default', ['serve', 'docs'], function(){
     gulp.watch(['./src/app/**/*.js', './index.js'], ['js']);
     gulp.watch('./src/less/**/*.less', ['less']);
 });
